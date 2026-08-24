@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SignupForm from "./SignupForm";
+import { isSupabaseConfigured } from "@/lib/supabase/config";
+import SetupRequired from "@/components/SetupRequired";
 
 export const metadata: Metadata = { title: "Create account" };
 
 export default function SignupPage() {
+  if (!isSupabaseConfigured()) return <SetupRequired />;
+
   return (
     <main className="flex min-h-dvh items-center justify-center px-6 py-14">
       <div className="w-full max-w-md animate-fade-up">
