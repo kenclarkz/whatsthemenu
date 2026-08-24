@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import LoginForm from "./LoginForm";
+import { isSupabaseConfigured } from "@/lib/supabase/config";
+import SetupRequired from "@/components/SetupRequired";
 
 export const metadata: Metadata = { title: "Sign in" };
 
@@ -9,6 +11,8 @@ export default async function LoginPage({
 }: {
   searchParams: Promise<{ next?: string }>;
 }) {
+  if (!isSupabaseConfigured()) return <SetupRequired />;
+
   const next = (await searchParams).next ?? "/dashboard";
 
   return (

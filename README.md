@@ -32,7 +32,26 @@ itself with duplicate ingredients merged.
 - TypeScript + Tailwind CSS v4
 - [Supabase](https://supabase.com) — Postgres + Auth + Row Level Security
 
-## Setup
+## Use it online
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fkenclarkz%2Fwhatsthemenu&project-name=whats-for-dinner&env=NEXT_PUBLIC_SUPABASE_URL%2CNEXT_PUBLIC_SUPABASE_ANON_KEY)
+
+1. **Create a Supabase project** at [supabase.com](https://supabase.com) and run
+   `supabase/schema.sql` then `supabase/seed.sql` in its SQL editor.
+2. Click the deploy button above — when prompted, paste in
+   `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   (Supabase → Settings → API).
+3. Back in Supabase → Authentication → URL Configuration, set the **Site URL**
+   to your deployed URL (e.g. `https://whats-for-dinner.vercel.app`) and add
+   `https://your-deployment-url/**` to the redirect allow-list if you use email
+   confirmation links.
+4. Open your deployment URL, sign up, and start planning. 🎉
+
+The app also runs on any Node host (`npm run build && npm start`) or Docker
+container — it only needs the two environment variables above. If they're
+missing, the site stays up and shows a setup checklist instead of crashing.
+
+## Setup (local development)
 
 1. **Create a Supabase project** at [supabase.com](https://supabase.com).
 2. Run the SQL: open the Supabase SQL editor and run `supabase/schema.sql`, then

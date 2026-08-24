@@ -1,11 +1,15 @@
 import { getSession } from "@/lib/data";
 import { BottomNav, Sidebar } from "@/components/Nav";
+import { isSupabaseConfigured } from "@/lib/supabase/config";
+import SetupRequired from "@/components/SetupRequired";
 
 export default async function MainLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  if (!isSupabaseConfigured()) return <SetupRequired />;
+
   const { profile, family } = await getSession();
 
   return (
