@@ -31,13 +31,12 @@ export async function updateSession(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
   const isAuthPage = pathname === "/login" || pathname === "/signup";
+  const isPublicPage = pathname === "/" || pathname === "/login" || pathname === "/signup";
 
-  if (!user && !isAuthPage && pathname !== "/auth/callback") {
+  if (!user && !isPublicPage && pathname !== "/auth/callback") {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = "/login";
-    if (pathname !== "/") {
-      redirectUrl.searchParams.set("next", pathname);
-    }
+    redirectUrl.searchParams.set("next", pathname);
     return NextResponse.redirect(redirectUrl);
   }
 
