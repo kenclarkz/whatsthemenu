@@ -9,11 +9,14 @@ itself with duplicate ingredients merged.
 - **Family accounts** — email/password auth; create a family (become organizer) or
   join with a 6-character invite code. Every table is scoped to your family via RLS.
 - **Meal plan** (`/plan`) — weekly *or* biweekly board with breakfast / lunch /
-  dinner slots per day. Suggest recipes (or custom ideas), vote ▲, and the
-  organizer **finalizes** the week: top-voted meal wins each slot.
-- **Recipes** — searchable/filterable cookbook with big food photography,
-  aisle-grouped ingredients and numbered steps on detail pages. Add your own
-  recipes with a photo gallery picker. Favorites everywhere ❤️
+  dinner slots per day, browsable week to week. Suggest recipes (or custom ideas
+  with a note), vote ▲ (one vote per person, retractable), and the organizer
+  **finalizes** the week: top-voted meal wins each slot, locking the menu (and
+  can reopen it to tweak).
+- **Recipes** — searchable/filterable cookbook (search, category chips, A→Z
+  sort) with big food photography, aisle-grouped ingredients and numbered steps
+  on detail pages. Add your own recipes from a photo gallery or your own image
+  link. Favorites everywhere ❤️
 - **Grocery list** (`/grocery`) — auto-generated from the finalized menu by a
   Postgres RPC that **merges duplicate ingredients** (sums quantities) and groups
   them by supermarket aisle. Check items off with animated checks; checked state
@@ -22,6 +25,9 @@ itself with duplicate ingredients merged.
   queue, and a week-at-a-glance strip.
 - **Favorites & history** — your greatest-hits grid plus past finalized weeks with
   one-tap "cook again".
+- **Settings** — edit your display name and avatar color, and manage your family:
+  a copyable 6-character invite code plus the full member roster with organizer
+  badges.
 - **Polish** — loading skeletons, empty states, error boundaries, confirmation
   dialogs, optimistic UI, bottom tab bar on phones and sidebar on desktop.
 
