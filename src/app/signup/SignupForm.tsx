@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
-export default function SignupForm() {
+export default function SignupForm({ next }: { next?: string }) {
   const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -30,7 +30,7 @@ export default function SignupForm() {
       if (
         (await supabase.auth.getSession()).data.session
       ) {
-        router.push("/onboarding");
+        router.push(next && next !== "/dashboard" ? next : "/onboarding");
         router.refresh();
       } else {
         setDone(true);
@@ -51,7 +51,7 @@ export default function SignupForm() {
           then sign in to start planning dinner.
         </p>
         <Link
-          href="/login"
+          href={next ? `/login?next=${encodeURIComponent(next)}` : "/login"}
           className="mt-6 inline-block rounded-full bg-gradient-to-r from-tomato to-berry px-8 py-3 font-bold text-white shadow-lg shadow-tomato/30 transition hover:brightness-110"
         >
           Go to sign in
@@ -125,7 +125,7 @@ export default function SignupForm() {
       </button>
       <p className="text-center text-sm text-ink-soft">
         Already have an account?{" "}
-        <Link href="/login" className="font-bold text-tomato hover:underline">
+        <Link href={next ? `/login?next=${encodeURIComponent(next)}` : "/login"} className="font-bold text-tomato hover:underline">
           Sign in
         </Link>
       </p>

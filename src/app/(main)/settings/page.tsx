@@ -4,6 +4,7 @@ import Avatar from "@/components/Avatar";
 import ProfileForm from "./ProfileForm";
 import SignOutButton from "./SignOutButton";
 import CopyCode from "./CopyCode";
+import InviteLink from "./InviteLink";
 
 export const metadata = { title: "Settings" };
 
@@ -32,12 +33,19 @@ export default async function SettingsPage() {
           👨‍👩‍👧‍👦 {family?.name}
         </h2>
         <p className="mb-4 text-sm text-ink-soft">
-          Share this invite code so others can join the table.
+          Send this link to family members so they can sign in and help choose the
+          week&apos;s menu.
         </p>
-        <div className="flex items-center gap-3 rounded-2xl border border-dashed border-mango bg-mango/10 px-5 py-4">
-          <code className="font-display flex-1 text-center text-3xl font-black tracking-[0.35em]">
-            {family?.invite_code}
-          </code>
+        <InviteLink code={family?.invite_code ?? ""} />
+        <div className="mt-6 flex items-center gap-3 rounded-2xl border border-dashed border-mango bg-mango/10 px-5 py-4">
+          <div className="flex-1">
+            <p className="text-xs font-bold uppercase tracking-wide text-ink-soft">
+              Manual invite code
+            </p>
+            <code className="font-display text-2xl font-black tracking-[0.3em]">
+              {family?.invite_code}
+            </code>
+          </div>
           <CopyCode code={family?.invite_code ?? ""} />
         </div>
         <ul className="mt-6 space-y-3">
