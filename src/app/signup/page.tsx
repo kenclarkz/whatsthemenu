@@ -6,8 +6,14 @@ import SetupRequired from "@/components/SetupRequired";
 
 export const metadata: Metadata = { title: "Create account" };
 
-export default function SignupPage() {
+export default async function SignupPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ next?: string }>;
+}) {
   if (!isSupabaseConfigured()) return <SetupRequired />;
+
+  const next = (await searchParams).next;
 
   return (
     <main className="flex min-h-dvh items-center justify-center px-6 py-14">
@@ -21,7 +27,7 @@ export default function SignupPage() {
         <p className="mt-2 mb-8 text-center text-ink-soft">
           Create your account, then start or join a family.
         </p>
-        <SignupForm />
+        <SignupForm next={next} />
       </div>
     </main>
   );

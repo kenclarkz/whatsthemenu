@@ -65,11 +65,51 @@ export async function joinFamily(formData: FormData) {
 
   if (!family) redirect("/onboarding?error=no-family");
 
-  await supabase
+  const { error } = await supabase
     .from("profiles")
     .update({ family_id: family.id })
     .eq("id", user.id);
 
+  if (error) redirect("/onboarding?error=code");
+
   revalidatePath("/", "layout");
   redirect("/dashboard");
+}
+
+/** Joins a family from an invite-code link, e.g. /join/<code>. */
+export async function joinFamilyByCode(raw: string) {
+  const supabase = await createClient();
+  const user = await requireUser();
+  const code = raw.trim().toUpperCase();
+  if (code.length !== 6) redirect("/join/not-found");
+
+  const { data: family } = await supabase
+    .from("families")
+    .select("id")
+    .eq("invite_code", code)
+    .single();
+
+  if (!family) redirect("/join/not-found");
+
+  // Already a member — nothing to do.
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("family_id")
+    .eq("id", user.id)
+    .single();
+
+  if (profile?.family_id === family.id) {
+    revalidatePath("/", "layout");
+    redirect("/plan");
+  }
+
+  const { error } = await supabase
+    .from("profiles")
+    .update({ family_id: family.id })
+    .eq("id", user.id);
+
+  if (error) redirect("/join/not-found");
+
+  revalidatePath("/", "layout");
+  redirect("/plan");
 }

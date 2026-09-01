@@ -80,7 +80,10 @@ export default function LoginForm({ next }: { next: string }) {
       </button>
       <p className="text-center text-sm text-ink-soft">
         New here?{" "}
-        <Link href="/signup" className="font-bold text-tomato hover:underline">
+        <Link
+          href={next && next !== "/dashboard" ? `/signup?next=${encodeURIComponent(next)}` : "/signup"}
+          className="font-bold text-tomato hover:underline"
+        >
           Create a family account
         </Link>
       </p>
